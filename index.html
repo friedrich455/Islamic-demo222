@@ -7,36 +7,57 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 20px;
+            margin: 0;
+            padding: 20px;
             background-color: #f4f4f4;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        .audio-section, .pdf-section {
-            margin: 30px auto;
-            padding: 20px;
+        .header {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .audio-section {
+            background-color: #007bff;
+            margin: 20px auto;
+            padding: 25px;
             width: 90%;
             max-width: 600px;
-            background-color: #007bff;
-            border-radius: 10px;
+            border-radius: 15px;
             color: white;
+            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
         }
 
-        .audio-section button, .audio-section a,
-        .pdf-section a {
+        .pdf-section {
+            background-color: #28a745;
+            margin: 20px auto;
+            padding: 25px;
+            width: 95%;
+            max-width: 850px;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+        }
+
+        .audio-section button, .audio-section a, .pdf-section a {
             display: inline-block;
             margin: 10px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 16px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             text-decoration: none;
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
         }
 
         .audio-section button {
@@ -47,85 +68,129 @@
         .audio-section button:hover {
             background-color: #ffeb3b;
             color: black;
+            transform: translateY(-2px);
         }
 
         .audio-section a {
-            background-color: #28a745;
+            background-color: #17a2b8;
             color: white;
         }
 
         .audio-section a:hover {
             background-color: #ffc107;
             color: black;
-        }
-
-        .pdf-section {
-            background-color: #28a745;
+            transform: translateY(-2px);
         }
 
         .pdf-section a {
             background-color: #dc3545;
             color: white;
-            display: inline-block;
+            padding: 12px 30px;
         }
 
         .pdf-section a:hover {
             background-color: #ffc107;
             color: black;
+            transform: translateY(-2px);
         }
 
         .pdf-viewer {
             width: 100%;
-            height: 600px;
-            border: none;
-            border-radius: 5px;
-            margin-top: 10px;
+            height: 650px;
+            border: 3px solid #fff;
+            border-radius: 10px;
+            margin-top: 15px;
+            background: white;
         }
 
-        h1, h2 {
-            color: #333;
-        }
+        h1 { margin: 0; font-size: 28px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        h2 { margin: 0 0 20px 0; font-size: 22px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>《斋戒·节俭·感恩》 作者：赛义德·努尔斯</h1>
+        <!-- Header -->
+        <div class="header">
+            <h1>《斋戒·节俭·感恩》</h1>
+            <h2>作者：赛义德·努尔斯</h2>
+        </div>
 
         <!-- Audio Section -->
         <div class="audio-section">
-            <h2>播放音频</h2>
-            <button id="playBtn">播放音频</button>
-            <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" download>下载音频</a>
-
-            <audio id="audioPlayer">
+            <h2>🎵 播放音频</h2>
+            <button id="playBtn">▶️ 播放音频</button>
+            <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" download>💾 下载音频</a>
+            
+            <audio id="audioPlayer" style="display: none;">
                 <source src="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" type="audio/mpeg">
             </audio>
         </div>
 
-        <!-- PDF Section -->
+        <!-- PDF Section with PDF.js -->
         <div class="pdf-section">
-            <h2>阅读书籍 (PDF)</h2>
-            <iframe class="pdf-viewer" 
-                    src="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf">
-                浏览器不支持 PDF。请 <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>下载 PDF</a> 阅读。
-            </iframe>
+            <h2>📖 阅读书籍 (PDF)</h2>
+            <div class="pdf-viewer" id="pdfViewer"></div>
             <br>
-            <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>下载 PDF</a>
+            <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>💾 下载完整 PDF</a>
         </div>
     </div>
 
-    <script>
+    <!-- PDF.js CDN (works in China) -->
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.432/build/pdf.min.mjs" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.432/build/pdf.min.js"></script>
+    
+    <script type="module">
+        import * as pdfjsLib from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.432/build/pdf.min.mjs';
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.432/build/pdf.worker.min.mjs';
+
+        const url = 'https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf';
+        const viewer = document.getElementById('pdfViewer');
+        
+        const loadingTask = pdfjsLib.getDocument(url);
+        loadingTask.promise.then(function(pdf) {
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                pdf.getPage(pageNum).then(function(page) {
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale: scale });
+                    
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    
+                    viewer.appendChild(canvas);
+                    
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            }
+        }).catch(function(error) {
+            viewer.innerHTML = '<p style="color: white; padding: 20px;">PDF 加载失败，请下载阅读</p>';
+        });
+
+        // Audio controls
         const playBtn = document.getElementById('playBtn');
         const audio = document.getElementById('audioPlayer');
 
         playBtn.addEventListener('click', () => {
             if (audio.paused) {
-                audio.play();
-                playBtn.textContent = "暂停音频";
+                audio.play().catch(e => alert('播放失败，请检查网络'));
+                playBtn.textContent = '⏸️ 暂停音频';
+                playBtn.style.backgroundColor = '#dc3545';
             } else {
                 audio.pause();
-                playBtn.textContent = "播放音频";
+                playBtn.textContent = '▶️ 播放音频';
+                playBtn.style.backgroundColor = '#0056b3';
             }
+        });
+
+        audio.addEventListener('ended', () => {
+            playBtn.textContent = '▶️ 播放音频';
+            playBtn.style.backgroundColor = '#0056b3';
         });
     </script>
 </body>
