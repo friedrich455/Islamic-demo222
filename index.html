@@ -100,7 +100,6 @@
             border: 3px solid #fff;
             border-radius: 10px;
             margin-top: 15px;
-            background: white;
         }
 
         h1 { margin: 0; font-size: 28px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
@@ -126,53 +125,20 @@
             </audio>
         </div>
 
-        <!-- PDF Section with PDF.js -->
+        <!-- PDF Section - Microsoft Viewer (China Compatible) -->
         <div class="pdf-section">
             <h2>📖 阅读书籍 (PDF)</h2>
-            <div class="pdf-viewer" id="pdfViewer"></div>
+            <iframe class="pdf-viewer" 
+                    src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf">
+                浏览器不支持 PDF 查看器。请 
+                <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>下载 PDF</a> 阅读。
+            </iframe>
             <br>
             <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>💾 下载完整 PDF</a>
         </div>
     </div>
 
-    <!-- PDF.js CDN (works in China) -->
-    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.432/build/pdf.min.mjs" type="module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.432/build/pdf.min.js"></script>
-    
-    <script type="module">
-        import * as pdfjsLib from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.432/build/pdf.min.mjs';
-
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.432/build/pdf.worker.min.mjs';
-
-        const url = 'https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf';
-        const viewer = document.getElementById('pdfViewer');
-        
-        const loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(function(pdf) {
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                pdf.getPage(pageNum).then(function(page) {
-                    const scale = 1.5;
-                    const viewport = page.getViewport({ scale: scale });
-                    
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    
-                    viewer.appendChild(canvas);
-                    
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-                });
-            }
-        }).catch(function(error) {
-            viewer.innerHTML = '<p style="color: white; padding: 20px;">PDF 加载失败，请下载阅读</p>';
-        });
-
-        // Audio controls
+    <script>
         const playBtn = document.getElementById('playBtn');
         const audio = document.getElementById('audioPlayer');
 
