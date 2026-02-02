@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Audio List</title>
+    <title>音频播放</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 80px;
+            margin-top: 100px;
             background-color: #f4f4f4;
         }
 
         .audio-link {
             display: block;
-            width: 200px;
+            width: 320px;
             margin: 20px auto;
-            font-size: 24px;
+            font-size: 22px;
             text-decoration: none;
             color: white;
             background-color: #007bff;
@@ -30,49 +30,27 @@
 </head>
 <body>
 
-    <!-- Audio Links -->
-    <a href="#" class="audio-link" data-audio="audio1">click me</a>
-    <a href="#" class="audio-link" data-audio="audio2">click me</a>
-    <a href="#" class="audio-link" data-audio="audio3">click me</a>
+    <!-- This text is what users see -->
+    <a href="#" class="audio-link" data-audio="audio1">
+        《斋戒·节俭·感恩》 作者：赛义德·努尔斯
+    </a>
 
-    <!-- Hidden Audio Players -->
     <audio id="audio1">
-        <source src="PASTE_GITHUB_RAW_LINK_1" type="audio/mpeg">
-    </audio>
-
-    <audio id="audio2">
-        <source src="PASTE_GITHUB_RAW_LINK_2" type="audio/mpeg">
-    </audio>
-
-    <audio id="audio3">
-        <source src="PASTE_GITHUB_RAW_LINK_3" type="audio/mpeg">
+        <source src="assets1/zhaijie.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        const links = document.querySelectorAll('.audio-link');
-        let currentAudio = null;
+        const link = document.querySelector('.audio-link');
+        const audio = document.getElementById('audio1');
 
-        links.forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
 
-                const audioId = this.getAttribute('data-audio');
-                const audio = document.getElementById(audioId);
-
-                // Stop currently playing audio
-                if (currentAudio && currentAudio !== audio) {
-                    currentAudio.pause();
-                    currentAudio.currentTime = 0;
-                }
-
-                // Toggle play/pause
-                if (audio.paused) {
-                    audio.play();
-                    currentAudio = audio;
-                } else {
-                    audio.pause();
-                }
-            });
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
         });
     </script>
 
