@@ -2,162 +2,104 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>斋戒·节俭·感恩 - 音频 & 阅读</title>
+    <title>斋戒·节俭·感恩</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-
-        .audio-section {
-            background-color: #007bff;
-            margin: 20px auto;
-            padding: 25px;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 15px;
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
-        }
-
-        .pdf-section {
-            background-color: #28a745;
-            margin: 20px auto;
-            padding: 25px;
-            width: 95%;
-            max-width: 850px;
-            border-radius: 15px;
-            color: white;
-            box-shadow: 0 4px 15px rgba(40,167,69,0.3);
-        }
-
-        .audio-section button, .audio-section a, .pdf-section a {
-            display: inline-block;
-            margin: 10px;
-            padding: 12px 24px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-
-        .audio-section button {
-            background-color: #0056b3;
-            color: white;
-        }
-
-        .audio-section button:hover {
-            background-color: #ffeb3b;
-            color: black;
-            transform: translateY(-2px);
-        }
-
-        .audio-section a {
-            background-color: #17a2b8;
-            color: white;
-        }
-
-        .audio-section a:hover {
-            background-color: #ffc107;
-            color: black;
-            transform: translateY(-2px);
-        }
-
-        .pdf-section a {
-            background-color: #dc3545;
-            color: white;
-            padding: 12px 30px;
-        }
-
-        .pdf-section a:hover {
-            background-color: #ffc107;
-            color: black;
-            transform: translateY(-2px);
-        }
-
-        .pdf-viewer {
-            width: 100%;
-            height: 650px;
-            border: 3px solid #fff;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 20px; background: #f4f4f4; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #007bff, #0056b3); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; }
+        .audio-section { background: #007bff; margin: 20px auto; padding: 25px; width: 90%; max-width: 600px; border-radius: 15px; color: white; box-shadow: 0 4px 15px rgba(0,123,255,0.3); }
+        .pdf-section { background: #28a745; margin: 20px auto; padding: 25px; width: 95%; max-width: 850px; border-radius: 15px; color: white; box-shadow: 0 4px 15px rgba(40,167,69,0.3); }
+        .btn { display: inline-block; margin: 10px; padding: 15px 30px; font-size: 18px; border: none; border-radius: 10px; text-decoration: none; cursor: pointer; transition: all 0.3s; font-weight: bold; color: white; }
+        .audio-section .btn { background: #0056b3; }
+        .audio-section .btn:hover { background: #ffeb3b; color: black; transform: scale(1.05); }
+        .pdf-section .btn { background: #dc3545; margin: 15px; padding: 20px 40px; font-size: 20px; }
+        .pdf-section .btn:hover { background: #ffc107; color: black; transform: scale(1.05); }
+        .pdf-preview { width: 100%; height: 150px; background: linear-gradient(45deg, #ddd, #eee); border: 3px solid #fff; border-radius: 15px; margin: 20px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 24px; color: #666; }
         h1 { margin: 0; font-size: 28px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         h2 { margin: 0 0 20px 0; font-size: 22px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>《斋戒·节俭·感恩》</h1>
             <h2>作者：赛义德·努尔斯</h2>
         </div>
 
-        <!-- Audio Section -->
+        <!-- Audio - Works Everywhere -->
         <div class="audio-section">
             <h2>🎵 播放音频</h2>
-            <button id="playBtn">▶️ 播放音频</button>
-            <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" download>💾 下载音频</a>
-            
+            <button class="btn" id="playBtn">▶️ 播放音频</button>
+            <a class="btn" href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" download>💾 下载音频</a>
             <audio id="audioPlayer" style="display: none;">
                 <source src="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" type="audio/mpeg">
             </audio>
         </div>
 
-        <!-- PDF Section - Microsoft Viewer (China Compatible) -->
+        <!-- PDF - WeChat NATIVE + Universal Fallback -->
         <div class="pdf-section">
-            <h2>📖 阅读书籍 (PDF)</h2>
-            <iframe class="pdf-viewer" 
-                    src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf">
-                浏览器不支持 PDF 查看器。请 
-                <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>下载 PDF</a> 阅读。
-            </iframe>
-            <br>
-            <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>💾 下载完整 PDF</a>
+            <h2>📖 阅读书籍 (100%兼容)</h2>
+            <div class="pdf-preview">
+                📚 《斋戒·节俭·感恩》书籍预览<br>
+                <small>点击下方按钮即可阅读</small>
+            </div>
+            
+            <!-- WeChat Native Preview (优先) -->
+            <button class="btn" onclick="openPDFWeChat()">📱 微信阅读 (推荐)</button>
+            
+            <!-- Universal Browser Viewer -->
+            <a class="btn" href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" target="_blank">🌐 浏览器阅读</a>
+            
+            <!-- Download -->
+            <a class="btn" href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>💾 下载PDF</a>
         </div>
     </div>
 
     <script>
+        // Universal Audio Controls
         const playBtn = document.getElementById('playBtn');
         const audio = document.getElementById('audioPlayer');
-
+        
         playBtn.addEventListener('click', () => {
             if (audio.paused) {
-                audio.play().catch(e => alert('播放失败，请检查网络'));
+                audio.play().catch(e => alert('播放失败'));
                 playBtn.textContent = '⏸️ 暂停音频';
-                playBtn.style.backgroundColor = '#dc3545';
+                playBtn.style.background = '#dc3545';
             } else {
                 audio.pause();
                 playBtn.textContent = '▶️ 播放音频';
-                playBtn.style.backgroundColor = '#0056b3';
+                playBtn.style.background = '#0056b3';
             }
         });
-
+        
         audio.addEventListener('ended', () => {
             playBtn.textContent = '▶️ 播放音频';
-            playBtn.style.backgroundColor = '#0056b3';
+            playBtn.style.background = '#0056b3';
         });
+
+        // WeChat Native PDF Preview + Universal Fallback
+        function openPDFWeChat() {
+            const pdfUrl = 'https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf';
+            
+            // Check if WeChat environment
+            if (navigator.userAgent.toLowerCase().indexOf('micromessenger') > -1) {
+                // WeChat Native File Preview API
+                if (typeof wx !== 'undefined' && wx.previewFile) {
+                    wx.previewFile({
+                        url: pdfUrl,
+                        type: 'pdf',
+                        success: function () { console.log('WeChat PDF opened'); },
+                        fail: function () { window.open(pdfUrl, '_blank'); }
+                    });
+                } else {
+                    // WeChat fallback
+                    window.open(pdfUrl, '_blank');
+                }
+            } else {
+                // Firefox/Chrome/others - Direct browser viewer
+                window.open(pdfUrl, '_blank');
+            }
+        }
     </script>
 </body>
 </html>
