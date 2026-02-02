@@ -2,25 +2,33 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>音频播放</title>
+    <title>斋戒·节俭·感恩 - 音频 & 阅读</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 100px;
+            margin-top: 20px;
             background-color: #f4f4f4;
         }
 
-        .audio-container {
-            margin: 20px auto;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
-            width: 400px;
+        }
+
+        .audio-section, .pdf-section {
+            margin: 30px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
             background-color: #007bff;
             border-radius: 10px;
             color: white;
         }
 
-        .audio-container button, .audio-container a {
+        .audio-section button, .audio-section a,
+        .pdf-section a {
             display: inline-block;
             margin: 10px;
             padding: 10px 20px;
@@ -31,41 +39,79 @@
             cursor: pointer;
         }
 
-        .audio-container button {
+        .audio-section button {
             background-color: #0056b3;
             color: white;
         }
 
-        .audio-container button:hover {
+        .audio-section button:hover {
             background-color: #ffeb3b;
             color: black;
         }
 
-        .audio-container a {
+        .audio-section a {
             background-color: #28a745;
             color: white;
         }
 
-        .audio-container a:hover {
+        .audio-section a:hover {
             background-color: #ffc107;
             color: black;
+        }
+
+        .pdf-section {
+            background-color: #28a745;
+        }
+
+        .pdf-section a {
+            background-color: #dc3545;
+            color: white;
+            display: inline-block;
+        }
+
+        .pdf-section a:hover {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        h1, h2 {
+            color: #333;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>《斋戒·节俭·感恩》 作者：赛义德·努尔斯</h1>
 
-    <div class="audio-container">
-        《斋戒·节俭·感恩》 作者：赛义德·努尔斯
-        <br>
-        <!-- Play/Pause Button -->
-        <button id="playBtn">播放音频</button>
-        <!-- Download Link -->
-        <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" download>下载音频</a>
+        <!-- Audio Section -->
+        <div class="audio-section">
+            <h2>播放音频</h2>
+            <button id="playBtn">播放音频</button>
+            <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" download>下载音频</a>
 
-        <!-- Hidden Audio -->
-        <audio id="audioPlayer">
-            <source src="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" type="audio/mpeg">
-        </audio>
+            <audio id="audioPlayer">
+                <source src="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijie.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- PDF Section -->
+        <div class="pdf-section">
+            <h2>阅读书籍 (PDF)</h2>
+            <iframe class="pdf-viewer" 
+                    src="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf">
+                浏览器不支持 PDF。请 <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>下载 PDF</a> 阅读。
+            </iframe>
+            <br>
+            <a href="https://raw.githubusercontent.com/friedrich455/Islamic-demo222/main/Assets1/zhaijiebook.pdf" download>下载 PDF</a>
+        </div>
     </div>
 
     <script>
@@ -82,6 +128,5 @@
             }
         });
     </script>
-
 </body>
 </html>
