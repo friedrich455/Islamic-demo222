@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>音频播放</title>
@@ -11,49 +11,77 @@
             background-color: #f4f4f4;
         }
 
-        .audio-link {
-            display: block;
-            width: 320px;
+        .audio-container {
             margin: 20px auto;
-            font-size: 22px;
-            text-decoration: none;
-            color: white;
+            padding: 20px;
+            width: 400px;
             background-color: #007bff;
-            padding: 15px;
-            border-radius: 8px;
+            border-radius: 10px;
+            color: white;
         }
 
-        .audio-link:hover {
+        .audio-container button, .audio-container a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .audio-container button {
             background-color: #0056b3;
+            color: white;
+        }
+
+        .audio-container button:hover {
+            background-color: #ffeb3b;
+            color: black;
+        }
+
+        .audio-container a {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .audio-container a:hover {
+            background-color: #ffc107;
+            color: black;
         }
     </style>
 </head>
 <body>
 
-    <!-- This text is what users see -->
-    <a href="#" class="audio-link" data-audio="audio1">
+    <div class="audio-container">
         《斋戒·节俭·感恩》 作者：赛义德·努尔斯
-    </a>
+        <br>
+        <!-- Play/Pause Button -->
+        <button id="playBtn">播放音频</button>
+        <!-- Download Link -->
+        <a href="Assets1/zhaijie.mp3" download>下载音频</a>
 
-    <audio id="audio1">
-        <source src="Assets1/zhaijie.mp3" type="audio/mpeg">
-    </audio>
+        <!-- Hidden Audio -->
+        <audio id="audioPlayer">
+            <source src="Assets1/zhaijie.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
     <script>
-        const link = document.querySelector('.audio-link');
-        const audio = document.getElementById('audio1');
+        const playBtn = document.getElementById('playBtn');
+        const audio = document.getElementById('audioPlayer');
 
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-
+        playBtn.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play();
+                playBtn.textContent = "暂停音频";
             } else {
                 audio.pause();
+                playBtn.textContent = "播放音频";
             }
         });
     </script>
 
 </body>
 </html>
-
